@@ -1,8 +1,8 @@
 # Voter Model Simulation  <a href="https://www.upc.edu/ca"><img src="images/upc-logo.gif" width=75 align=right></a>
 
 <!-- badges: start -->
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/TomasGadea/NLP-StochasticProperties/issues/new)
-[![HitCount](http://hits.dwyl.com/TomasGadea/NLP-StochasticProperties.svg)](http://hits.dwyl.com/TomasGadea/NLP-StochasticProperties)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/TomasGadea/voter-model-simulation/issues/new)
+[![HitCount](http://hits.dwyl.com/TomasGadea/voter-model-simulation.svg)](http://hits.dwyl.com/TomasGadea/voter-model-simulation)
 
 [![GitHub followers](https://img.shields.io/github/followers/TomasGadea?label=Follow&style=social)](https://github.com/TomasGadea)
 [![Linkedin](https://img.shields.io/static/v1?label=LinkedIn&message=Contact&style=social&logo=Linkedin)](https://www.linkedin.com/in/tomas-gadea/)
