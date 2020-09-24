@@ -8,6 +8,13 @@ Created on Wed Sep 23rd 2020
 import pygame
 import numpy as np
 import time
+import random
+
+
+
+
+
+
 
 WIDTH, HEIGHT = 800, 800
 nX, nY = 10, 10
@@ -18,29 +25,75 @@ pygame.init()  # Initialize PyGame
 
 screen = pygame.display.set_mode([WIDTH, HEIGHT])  # Set size of screen
 
-BG_COLOR = (255, 255, 255)  # Define background color
+white = (255, 255, 255)  # Define background color
+red = (255, 0, 0)
+blue = (0, 0, 255)
 
-pause = False
+status = np.zeros((nX, nY))
+
+pauseRun = True
 running = True
 
 while running:
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-
-    screen.fill(BG_COLOR)  # Clean background
-
     for x in range(0, nX):
         for y in range(0, nY):
-
             poly = [(x*xSize, y*ySize),
                     ((x+1)*xSize, y*ySize),
                     ((x+1)*xSize, (y+1)*ySize),
                     (x*xSize, (y+1)*ySize)]
 
-            pygame.draw.polygon(screen, (200, 200, 200), poly, 1)
+            if status[x, y] == 1:
+                pygame.draw.polygon(screen, blue, poly, 0)
+            else:
+                pygame.draw.polygon(screen, red, poly, 0)
 
+
+
+
+
+
+    newStatus = np.copy(status)
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+        if event.type == pygame.KEYDOWN:
+            pauseRun = not pauseRun
+
+        mouseClick = pygame.mouse.get_pressed()
+        if sum(mouseClick) > 0:
+            posX, posY = pygame.mouse.get_pos()
+            x, y = int(np.floor(posX/xSize)), int(np.floor(posY/ySize))
+            newStatus[x, y] = not mouseClick[2]
+
+
+    if not pauseRun:
+
+        # pick a random position x, y
+        randX = random.randint(0, nX-1)
+        randY = random.randint(0, nY-1)
+
+        
+
+
+        # change that position to either 1 of their 4 neighbours at random
+        neighbour = random.randint(1, 4) # 1 up, 2 right, 3 down, 4 left
+        if neighbour == 1:
+            newStatus[randX, randY] = status[(randX-1) % (nX-1), randY]
+
+        elif neighbour == 2:
+            newStatus[randX, randY] = status[randX, (randY+1) % (nY-1)]
+
+        elif neighbour == 3:
+            newStatus[randX, randY] = status[(randX+1) % (nX-1), randY]
+
+        elif neighbour == 4:
+            newStatus[randX, randY] = status[randX, (randY-1) % (nY-1)]
+
+
+    status = np.copy(newStatus)
     time.sleep(0.1)
     pygame.display.flip()
 
