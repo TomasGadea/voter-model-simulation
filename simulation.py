@@ -10,13 +10,19 @@ import numpy as np
 import time
 import random
 
+def outputStats(total, nBlue, nRed, iterations):
+
+    print("iteration:", iterations)
+
+    t = (4*total//10)
+    b = (4*nBlue//10)
+    r = (4*nRed//10)
+    print("B: [", b*"*", (t-b)*".", "]", nBlue, '%', sep='')
+    print("R: [", r*"*", (t-r)*".", "]", nRed, '%', sep='')
 
 
 
-
-
-
-WIDTH, HEIGHT = 800, 800
+WIDTH, HEIGHT = 500, 500
 nX, nY = 10, 10
 xSize = WIDTH / nX
 ySize = HEIGHT / nY
@@ -25,16 +31,18 @@ pygame.init()  # Initialize PyGame
 
 screen = pygame.display.set_mode([WIDTH, HEIGHT])  # Set size of screen
 
-white = (255, 255, 255)  # Define background color
-red = (255, 0, 0)
-blue = (0, 0, 255)
+red = (255, 160, 122)
+blue = (65, 105, 225)
 
 status = np.zeros((nX, nY))
 
 pauseRun = True
 running = True
 
+iterations = 0
+
 while running:
+    iterations += 1
 
     for x in range(0, nX):
         for y in range(0, nY):
@@ -75,7 +83,7 @@ while running:
         randX = random.randint(0, nX-1)
         randY = random.randint(0, nY-1)
 
-        
+
 
 
         # change that position to either 1 of their 4 neighbours at random
@@ -92,9 +100,23 @@ while running:
         elif neighbour == 4:
             newStatus[randX, randY] = status[randX, (randY-1) % (nY-1)]
 
+        nBlue = int(np.sum(status))
+        nRed = status.size - nBlue
+
+        outputStats(status.size, nBlue, nRed, iterations)
+        print()
+
+        if nBlue == status.size:
+            running = False
+            print("BLUE-DOMINATION in", iterations, "iterations")
+        elif nRed == status.size:
+            running = False
+            print("RED-DOMINATION in", iterations, "iterations")
+
+
 
     status = np.copy(newStatus)
-    time.sleep(0.1)
+    time.sleep(0.01)
     pygame.display.flip()
 
 
