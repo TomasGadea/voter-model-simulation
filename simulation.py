@@ -78,27 +78,18 @@ while running:
 
 
     if not pauseRun:
-
-        # pick a random position x, y
         randX = random.randint(0, nX-1)
-        randY = random.randint(0, nY-1)
+        randY = random.randint(0, nX-1)
 
+        neighbours = [((randX-1)%(nX-1), randY),
+                        ((randX+1)%(nX-1), randY),
+                        (randX, (randY-1)%(nY-1)),
+                        (randX, (randY+1)%(nY-1))]
 
+        pos = random.randint(0, 3)
 
+        newStatus[randX, randY] = status[neighbours[pos]]
 
-        # change that position to either 1 of their 4 neighbours at random
-        neighbour = random.randint(1, 4) # 1 up, 2 right, 3 down, 4 left
-        if neighbour == 1:
-            newStatus[randX, randY] = status[(randX-1) % (nX-1), randY]
-
-        elif neighbour == 2:
-            newStatus[randX, randY] = status[randX, (randY+1) % (nY-1)]
-
-        elif neighbour == 3:
-            newStatus[randX, randY] = status[(randX+1) % (nX-1), randY]
-
-        elif neighbour == 4:
-            newStatus[randX, randY] = status[randX, (randY-1) % (nY-1)]
 
         nBlue = int(np.sum(status))
         nRed = status.size - nBlue
@@ -116,7 +107,7 @@ while running:
 
 
     status = np.copy(newStatus)
-    time.sleep(0.001)
+    time.sleep(0.01)
     pygame.display.flip()
 
 
