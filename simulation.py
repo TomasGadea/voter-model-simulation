@@ -36,17 +36,57 @@ def parseArgs():
         global k
         k = int(args.k)
 
-def main():
-
-    parseArgs()
-        # Create grid:
+def randomGrid(N, k):
     grid = np.zeros((N, N))
 
-        # Fill grid at random:
     for i in range(N):
         for j in range(N):
             a = random.randint(0, k-1)
             grid[i, j] = a
+
+    return grid
+
+def customGrid(N):
+    grid = np.array([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])
+    return grid
+
+def chessGrid(N):
+    grid = np.zeros((N, N))
+
+    for i in range(N):
+        for j in range(N):
+            if (i+j) % 2 == 0:
+                grid[i, j] = 1
+
+    return grid
+
+
+def occurrences(grid, k):
+    return [np.count_nonzero(grid == num) for num in range(k)]
+
+def main():
+
+    parseArgs()
+        # Create grid:
+    grid = customGrid(N)
+    print("Random grid:")
+    print(grid)
+
+    countList= occurrences(grid, k)
+
+    print(countList)
+
+
+
 
     # data structure to store colors 'alive' and its count
     # begin loop, update grid, make counts
