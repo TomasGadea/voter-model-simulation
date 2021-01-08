@@ -76,6 +76,7 @@ def occurrences(grid, k):
 def main():
 
     parseArgs()
+
         # Create grid:
     grid = customGrid(N)
     print("Random grid:")

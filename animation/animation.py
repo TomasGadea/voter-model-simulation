@@ -10,15 +10,18 @@ import numpy as np
 import time
 import random
 
+print(10*"\n")
+
 def outputStats(total, nBlue, nRed, iterations):
 
-    print("iteration:", iterations)
+    # print("\riteration:", iterations, end="", flush=True)
 
     t = (4*total//10)
     b = (4*nBlue//10)
     r = (4*nRed//10)
-    print("B: [", b*"*", (t-b)*".", "]", nBlue, '%', sep='')
-    print("R: [", r*"*", (t-r)*".", "]", nRed, '%', sep='')
+    print("\rB: [", b*"*", (t-b)*".", "]", nBlue, '%', sep='', end='      ')
+    print("R: [", r*"*", (t-r)*".", "]", nRed, '%', sep='', end='', flush=True)
+
 
 
 
@@ -81,10 +84,10 @@ while running:
         randX = random.randint(0, nX-1)
         randY = random.randint(0, nX-1)
 
-        neighbours = [((randX-1)%(nX-1), randY),
-                        ((randX+1)%(nX-1), randY),
-                        (randX, (randY-1)%(nY-1)),
-                        (randX, (randY+1)%(nY-1))]
+        neighbours = [((randX-1)%(nX), randY),
+                        ((randX+1)%(nX), randY),
+                        (randX, (randY-1)%(nY)),
+                        (randX, (randY+1)%(nY))]
 
         pos = random.randint(0, 3)
 
@@ -95,14 +98,15 @@ while running:
         nRed = status.size - nBlue
 
         outputStats(status.size, nBlue, nRed, iterations)
-        print()
 
         if nBlue == status.size:
             running = False
-            print("BLUE-DOMINATION in", iterations, "iterations")
+            print()
+            print(10*' ', "BLUE-DOMINATION in", iterations, "iterations", flush=True)
         elif nRed == status.size:
             running = False
-            print("RED-DOMINATION in", iterations, "iterations")
+            print()
+            print(60*' ', "RED-DOMINATION in", iterations, "iterations", flush=True)
 
 
 
