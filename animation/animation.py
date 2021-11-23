@@ -26,7 +26,7 @@ def outputStats(total, nBlue, nRed, iterations):
 
 
 WIDTH, HEIGHT = 500, 500
-nX, nY = 10, 10
+nX, nY = 28, 28
 xSize = WIDTH / nX
 ySize = HEIGHT / nY
 
